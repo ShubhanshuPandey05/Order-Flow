@@ -10,14 +10,13 @@ import dotenv from "dotenv";
 const app = express();
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(cors({
-  origin: ['http://localhost:5173', 'https://orderflow.jsrprimesolution.com/'], // Your front-end local domain
-  credentials: true, // Allow credentials (cookies) to be sent
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed methods
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-}));
-
-
+// app.use(cors({
+//   origin: ['http://localhost:5173', 'https://orderflow.jsrprimesolution.com/'], // Your front-end local domain
+//   credentials: true, // Allow credentials (cookies) to be sent
+//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed methods
+//   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+// }));
+app.use(cors())
 dotenv.config();
 
 // Endpoint to update spreadsheet
