@@ -1,22 +1,30 @@
 import { google } from "googleapis"
 import path from "path";
 import { fileURLToPath } from "url";
+import dotenv from "dotenv";
+dotenv.config();
+
 
 // Get the __dirname equivalent in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 // Load service account key file
-const SERVICE_ACCOUNT_FILE = path.join(__dirname, "../service-account.json");
+// const SERVICE_ACCOUNT_FILE = path.join(__dirname, "../service-account.json");
 
 // Spreadsheet ID and range to update
 const SPREADSHEET_ID = process.env.SPREADSHEET_ID;
 const RANGE = "Sheet1!A1:D1";
 
 // Authenticate with the Google API using Service Account
+const serviceAccountCredentials = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON);
+
 const auth = new google.auth.GoogleAuth({
-  keyFile: SERVICE_ACCOUNT_FILE,
+  // keyFile: SERVICE_ACCOUNT_FILE,
+  credentials: serviceAccountCredentials,
   scopes: ["https://www.googleapis.com/auth/spreadsheets"],
 });
+
 
 export const updateOrder = async (req, res) => {
   try {

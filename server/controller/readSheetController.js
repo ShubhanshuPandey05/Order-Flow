@@ -1,14 +1,21 @@
 import { google } from "googleapis";
 import path from "path";
 import { fileURLToPath } from "url";
+import dotenv from "dotenv";
+dotenv.config();
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const SERVICE_ACCOUNT_FILE = path.join(__dirname, "../service-account.json");
+// const SERVICE_ACCOUNT_FILE = path.join(__dirname, "../service-account.json");
+
+
+const serviceAccountCredentials = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON);
 
 const auth = new google.auth.GoogleAuth({
-  keyFile: SERVICE_ACCOUNT_FILE,
+  // keyFile: SERVICE_ACCOUNT_FILE,
+  credentials: serviceAccountCredentials,
   scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
 });
 
