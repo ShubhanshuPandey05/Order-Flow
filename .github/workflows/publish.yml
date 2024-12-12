@@ -28,14 +28,11 @@ jobs:
       - name: Pull latest changes
         run: git pull origin main
 
-      - name: Change directory
-        run: cd client
-
       - name: Install all dependencies
-        run: npm install
+        run: cd client npm install
 
       - name: Build
-        run: npm run build # The build command of your project
+        run: cd client npm run build # The build command of your project
 
       - name: Push
         uses: s0/git-publish-subdir-action@develop
