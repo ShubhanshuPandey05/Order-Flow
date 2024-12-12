@@ -16,30 +16,30 @@ function App() {
   return (
     // <LoginPage />
     // <SignUpPage />
-    <LoadingProvider>
-      <>
-        <Toaster />
-        <Router>
-          <div className="pb-16 sm:pb-0">
-            <Routes>
-              <Route path="/login" element={isAuth ? <Navigate to="/" /> : <LoginPage />} />
-              <Route path="/signUp" element={isAuth ? <Navigate to="/" /> : <SignUpPage />} />
-              <Route path="/" element={isAuth ? <UserPage /> : <Navigate to="/login" />} />
-            </Routes>
-          </div>
-        </Router>
-        <LoadingScreen />
-      </>
-    </LoadingProvider>
-    // <>
-    //   <Router>
-    //     <UserPage />
-    //     <BottomNavBar />
-    //     {/* <div className="h-screen flex justify-center items-center bg-gray-900">
-    //       <Navigation />
-    //     </div> */}
-    //   </Router>
-    // </>
+    // <LoadingProvider>
+    //   <>
+    //     <Toaster />
+    //     <Router>
+    //       <div className="pb-16 sm:pb-0">
+    //         <Routes>
+    //           <Route path="/login" element={isAuth ? <Navigate to="/" /> : <LoginPage />} />
+    //           <Route path="/signUp" element={isAuth ? <Navigate to="/" /> : <SignUpPage />} />
+    //           <Route path="/" element={isAuth ? <UserPage /> : <Navigate to="/login" />} />
+    //         </Routes>
+    //       </div>
+    //     </Router>
+    //     <LoadingScreen />
+    //   </>
+    // </LoadingProvider>
+    <>
+      <Router>
+        <UserPage />
+        <BottomNavBar />
+        {/* <div className="h-screen flex justify-center items-center bg-gray-900">
+          <Navigation />
+        </div> */}
+      </Router>
+    </>
   )
 }
 

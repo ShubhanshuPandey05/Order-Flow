@@ -20,7 +20,7 @@ export const signUp = async (req, res) => {
 
         // Generate a temporary token and verification link
         const tempToken = Math.floor(Math.random() * 9000000) + 1000000;
-        const tempLink = `http://localhost:8000/api/auth/user/userVerification/${tempToken}?MobileNo=${MobileNo}`;
+        const tempLink = `https://order-flow-api-ek8r.onrender.com/api/auth/user/userVerification/${tempToken}?MobileNo=${MobileNo}`;
 
         // Create the new user instance
         let newUser = new User({

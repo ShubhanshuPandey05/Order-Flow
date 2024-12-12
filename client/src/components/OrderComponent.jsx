@@ -27,7 +27,7 @@ export default function UserComponent() {
       try {
         // const response = await fetch("http://localhost:8000/api/get-order-items", {
         const response = await fetch("https://order-flow-api-ek8r.onrender.com/api/get-order-items", {
-        // const response = await fetch("https://order-flow-api.vercel.app/api/get-order-items", {
+          // const response = await fetch("https://order-flow-api.vercel.app/api/get-order-items", {
           method: "GET",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
@@ -84,7 +84,7 @@ export default function UserComponent() {
     try {
       // const response = await fetch("https://order-flow-api.vercel.app/api/update-spreadsheet", {
       const response = await fetch("https://order-flow-api-ek8r.onrender.com/api/update-spreadsheet", {
-      // const response = await fetch("http://localhost:8000/api/update-spreadsheet", {
+        // const response = await fetch("http://localhost:8000/api/update-spreadsheet", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ customerName, contactNo, items, dispatchThrough, dueDays, orderNote }),
@@ -92,7 +92,7 @@ export default function UserComponent() {
       });
 
       if (response.ok) {
-        setItems([{ name: "", quantity: "", rate: "", amount: "", itemNote:"" }]);
+        setItems([{ name: "", quantity: "", rate: "", amount: "", itemNote: "" }]);
         setDispatchThrough("");
         setDueDays("");
         setOrdeNote("")
@@ -251,29 +251,36 @@ export default function UserComponent() {
 
           {/* Dispatch and Due Days */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
-            <input
-              type="text"
-              placeholder="Dispatch Through"
-              value={dispatchThrough}
-              onChange={(e) => setDispatchThrough(e.target.value)}
-              className="border-gray-300 rounded-md p-3 border"
-            />
-            <input
-              type="number"
-              placeholder="Due Days"
-              value={dueDays}
-              onChange={(e) => setDueDays(e.target.value)}
-              className="border-gray-300 rounded-md p-3 border"
-            />
-            <div className="col-span-2">
-              <textarea name="itemNote" id="itemNote" value={orderNote}
-              onChange={(e) => setOrdeNote(e.target.value)}
-              className="w-full col-span-6 h-[40px] p-2 rounded-md"
-              placeholder="Remark"
-              >
-              </textarea>
+            <div className="col-span-1">
+              <input
+                type="text"
+                placeholder="Dispatch Through"
+                value={dispatchThrough}
+                onChange={(e) => setDispatchThrough(e.target.value)}
+                className="border-gray-300 rounded-md p-3 border w-full"
+              />
+            </div>
+            <div className="col-span-1">
+              <input
+                type="number"
+                placeholder="Due Days"
+                value={dueDays}
+                onChange={(e) => setDueDays(e.target.value)}
+                className="border-gray-300 rounded-md p-3 border w-full"
+              />
+            </div>
+            <div className="col-span-1 sm:col-span-2">
+              <textarea
+                name="itemNote"
+                id="itemNote"
+                value={orderNote}
+                onChange={(e) => setOrderNote(e.target.value)}
+                className="w-full h-[40px] p-2 rounded-md"
+                placeholder="Remark"
+              ></textarea>
             </div>
           </div>
+
 
           {/* Submit Button */}
           <div className="text-center">
