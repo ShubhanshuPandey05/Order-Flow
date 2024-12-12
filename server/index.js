@@ -11,7 +11,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: 'http://localhost:5173', // Your front-end local domain
+  origin: ['http://localhost:5173', 'https://orderflow.jsrprimesolution.com/'], // Your front-end local domain
   credentials: true // Allow credentials (cookies) to be sent
 }));
 

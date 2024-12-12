@@ -14,8 +14,8 @@ const YourOrder = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:8000/api/get-filtered-order/${contactNumber}`,
+        const response = await fetch(`https://order-flow-api.vercel.app/api/get-filtered-order/${contactNumber}`,
+        // const response = await fetch(`http://localhost:8000/api/get-filtered-order/${contactNumber}`,
           {
             method: "GET",
             headers: {
