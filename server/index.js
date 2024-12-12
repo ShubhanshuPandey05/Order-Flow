@@ -11,7 +11,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: 'https://orderflow.jsrprimesolution.com/', // Your front-end local domain
+  origin: 'https://orderflow.jsrprimesolution.com', // Your front-end local domain
   credentials: true, // Allow credentials (cookies) to be sent
 }));
 // app.use(cors())
