@@ -8,12 +8,12 @@ import connectionToDatabase from './database/databaseConnection.js';
 import dotenv from "dotenv";
 
 const app = express();
-app.use(bodyParser.json());
-app.use(cookieParser());
 app.use(cors({
   origin: 'https://orderflow.jsrprimesolution.com', // Your front-end local domain
   credentials: true, // Allow credentials (cookies) to be sent
 }));
+app.use(bodyParser.json());
+app.use(cookieParser());
 // app.use(cors())
 dotenv.config();
 
