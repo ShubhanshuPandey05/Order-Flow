@@ -42,6 +42,6 @@ jobs:
         env:
           REPO: self
           BRANCH: build # The branch name where you want to push the assets
-          FOLDER: client/build # Ensure this is the correct path to the build directory
+          FOLDER: client/dist # Ensure this is the correct path to the build directory
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MESSAGE: "Build: (${GITHUB_SHA}) ${GITHUB_EVENT_NAME}" # Commit message with SHA and event name
