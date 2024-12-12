@@ -64,9 +64,29 @@ dotenv.config();
 //   }
 // });
 
+app.get('/',(req,res)=>{
+  res.send("OrderFlow Api")
+})
 
 app.use("/api/",orderRoute)
 app.use("/api/auth/",authRoute)
+
+function pingServer() {
+  fetch('https://formsflow.onrender.com/')
+      .then(response => {
+          if (response.ok) {
+              console.log('Server is reachable');
+          } else {
+              console.error('Server responded with an error:', response.status);
+          }
+      })
+      .catch(error => {
+          console.error('Error pinging the server:', error);
+      });
+}
+
+// Ping the server every 30 seconds
+setInterval(pingServer, 30000);
 
 
 // Start the server

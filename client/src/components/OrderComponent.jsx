@@ -26,7 +26,8 @@ export default function UserComponent() {
     async function fetchItems() {
       try {
         // const response = await fetch("http://localhost:8000/api/get-order-items", {
-        const response = await fetch("https://order-flow-api.vercel.app/api/get-order-items", {
+        const response = await fetch("https://order-flow-api-ek8r.onrender.com/api/get-order-items", {
+        // const response = await fetch("https://order-flow-api.vercel.app/api/get-order-items", {
           method: "GET",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
@@ -81,7 +82,8 @@ export default function UserComponent() {
 
   const confirmOrder = async () => {
     try {
-      const response = await fetch("https://order-flow-api.vercel.app/api/update-spreadsheet", {
+      // const response = await fetch("https://order-flow-api.vercel.app/api/update-spreadsheet", {
+      const response = await fetch("https://order-flow-api-ek8r.onrender.com/api/update-spreadsheet", {
       // const response = await fetch("http://localhost:8000/api/update-spreadsheet", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
