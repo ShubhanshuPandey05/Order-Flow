@@ -71,7 +71,9 @@ export default function UserComponent() {
   };
 
   const handleRemoveItem = (index) => {
-    setItems(items.filter((_, i) => i !== index));
+    if (index != 0) {
+      setItems(items.filter((_, i) => i !== index));
+    }
   };
 
 
