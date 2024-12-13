@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useLoading } from "../context/LoadingContext";
 
 export default function UserComponent() {
 
@@ -20,12 +21,15 @@ export default function UserComponent() {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [itemOptions, setItemOptions] = useState([]);
+  const { showLoading, hideLoading } = useLoading();
+
 
 
   useEffect(() => {
     async function fetchItems() {
       try {
         // const response = await fetch("http://localhost:8000/api/get-order-items", {
+        showLoading();
         const response = await fetch("https://order-flow-api-ek8r.onrender.com/api/get-order-items", {
           // const response = await fetch("https://order-flow-api.vercel.app/api/get-order-items", {
           method: "GET",
@@ -35,12 +39,20 @@ export default function UserComponent() {
         const data = await response.json();
         // console.log(data);
         setItemOptions(data.data.map((item) => item["Item Name"]));
+        hideLoading();
 
       } catch (error) {
         console.error("Error fetching item names:", error);
+        toast.error('No items fetched try again later')
+        hideLoading();
       }
     }
     fetchItems();
+    let token = getCookie("jwt")
+    if (!token) {
+      localStorage.removeItem("authUser");
+      window.location.reload();
+    }
   }, []);
 
 
