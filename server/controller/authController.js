@@ -114,7 +114,6 @@ export const login = async (req, res) => {
                 if (user.Authorized == true) {
                     const token = generateAndSetCookies(user._id);
                     res.cookie("jwt", token, {
-                        httpOnly: true,
                         secure: true,      // Required for SameSite=None
                         sameSite: 'None'   // Allows cross-site cookies
                     });
