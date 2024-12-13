@@ -117,7 +117,7 @@ export const login = async (req, res) => {
                         httpOnly: true,
                         secure: true,      // Required for SameSite=None
                         sameSite: 'None',   // Allows cross-site cookies
-                        domain: 'orderflow.jsrprimesolution.com',
+                        domain: 'jsrprimesolution.com',
                         path: '/',
                     });
                     res.status(200).json({
