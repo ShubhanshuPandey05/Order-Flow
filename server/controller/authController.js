@@ -113,13 +113,7 @@ export const login = async (req, res) => {
             if (isMatch) {
                 if (user.Authorized == true) {
                     const token = generateAndSetCookies(user._id);
-                    res.cookie("jwt", token, {
-                        httpOnly: true,
-                        secure: true,      // Required for SameSite=None
-                        sameSite: 'None',   // Allows cross-site cookies
-                        domain: 'jsrprimesolution.com',
-                        path: '/',
-                    });
+                    res.cookie("jwt", token);
                     res.status(200).json({
                         _id: user._id,
                         Companyname: user.Companyname,
