@@ -117,6 +117,7 @@ export const login = async (req, res) => {
                         httpOnly: true,
                         secure: true,      // Required for SameSite=None
                         sameSite: 'None',   // Allows cross-site cookies
+                        domain: 'jsrprimesolution.com'
                     });
                     res.status(200).json({
                         _id: user._id,
