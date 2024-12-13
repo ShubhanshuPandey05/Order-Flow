@@ -39,16 +39,16 @@ export default function UserComponent() {
         const data = await response.json();
         // console.log(data);
         setItemOptions(data.data.map((item) => item["Item Name"]));
-        let token = getCookie("jwt")
-        if (!token) {
-          localStorage.removeItem("authUser");
-          window.location.reload();
-        }
         hideLoading();
 
       } catch (error) {
         console.error("Error fetching item names:", error);
         toast.error('No items fetched try again later')
+        let token = getCookie("jwt")
+        if (!token) {
+          localStorage.removeItem("authUser");
+          window.location.reload();
+        }
         hideLoading();
       }
     }
