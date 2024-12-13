@@ -39,6 +39,11 @@ export default function UserComponent() {
         const data = await response.json();
         // console.log(data);
         setItemOptions(data.data.map((item) => item["Item Name"]));
+        let token = getCookie("jwt")
+        if (!token) {
+          localStorage.removeItem("authUser");
+          window.location.reload();
+        }
         hideLoading();
 
       } catch (error) {
@@ -48,11 +53,6 @@ export default function UserComponent() {
       }
     }
     fetchItems();
-    let token = getCookie("jwt")
-    if (!token) {
-      localStorage.removeItem("authUser");
-      window.location.reload();
-    }
   }, []);
 
 
