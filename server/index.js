@@ -10,7 +10,7 @@ import dotenv from "dotenv";
 const app = express();
 app.use(bodyParser.json());
 app.use(cookieParser());
-// app.use(cors())
+app.use(cors());
 dotenv.config();
 
 // Endpoint to update spreadsheet
