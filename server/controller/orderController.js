@@ -34,7 +34,7 @@ export const updateOrder = async (req, res) => {
 
     // Get data from request body
     const currentDate = new Date();
-    const { contactNo, customerName, items,dispatchThrough, dueDays, orderNote } = req.body; // Example: { values: [["Order123", "John Doe", "Product A", "100"]] }
+    const { contactNo,CompanyName, customerName, items,dispatchThrough, dueDays, orderNote } = req.body; // Example: { values: [["Order123", "John Doe", "Product A", "100"]] }
     const deliveryDate = new Date();
     deliveryDate.setDate(currentDate.getDate() + parseInt(dueDays || 0));
     let formattedDeliveryDate = "";
@@ -42,11 +42,17 @@ export const updateOrder = async (req, res) => {
       formattedDeliveryDate = deliveryDate.toLocaleDateString();
     }
 
+    const options = {
+      timeZone: 'Asia/Kolkata', // IST time zone
+      hour12: true, // Optional, for 12-hour format
+    };
+
     const rows = items.map((item) => [
-      new Date().toLocaleDateString(), // Date
-      new Date().toLocaleTimeString(), // Time
-      contactNo, // Customer ID (leave empty for now)
+      new Date().toLocaleDateString('en-IN', options), // Date
+      new Date().toLocaleTimeString('en-IN', options), // Time
+      CompanyName,
       customerName, // Customer Name
+      contactNo, // Customer ID (leave empty for now)
       item.name, // Item Name
       item.itemNote||"",
       item.unit || "Unit",

@@ -6,6 +6,7 @@ const genrateTokenAndSetCookies = (userId,res) => {
     });
 
     res.cookie("jwt", token, {
+        path: "/",
         maxAge: 999 * 24 * 60 * 60 * 1000, // 999 days in milliseconds
         httpOnly: true,
         sameSite: "None",
