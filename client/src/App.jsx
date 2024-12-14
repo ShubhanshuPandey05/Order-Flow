@@ -25,8 +25,10 @@ function App() {
               <Route path="/login" element={isAuth ? <Navigate to="/" /> : <LoginPage />} />
               <Route path="/signUp" element={isAuth ? <Navigate to="/" /> : <SignUpPage />} />
               <Route path="/" element={isAuth ? <UserPage /> : <Navigate to="/login" />} />
+              <Route path="/your-order" element={isAuth ? <OrderPage /> : <Navigate to="/login" />} />
             </Routes>
           </div>
+          <BottomNavBar />
         </Router>
         <LoadingScreen />
       </>

@@ -7,11 +7,12 @@ export default function UserComponent() {
   const authUser = JSON.parse(localStorage.getItem("authUser")) || {
     customerName: "",
     contactNo: "",
+    companyName: ""
   };
 
   const [customerName] = useState(authUser.ContactPersonName || "");
   const [contactNo] = useState(authUser.MobileNo || "");
-  const [CompanyName] = useState(authUser.Companyname || "");
+  const [companyName] = useState(authUser.Companyname || "");
   const [items, setItems] = useState([
     { name: "", unit: "", quantity: "", rate: "", amount: "", itemNote: "" },
   ]);
@@ -103,7 +104,7 @@ export default function UserComponent() {
         // const response = await fetch("http://localhost:8000/api/update-spreadsheet", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ customerName, contactNo, items, dispatchThrough, dueDays, orderNote }),
+        body: JSON.stringify({ companyName, customerName, contactNo, items, dispatchThrough, dueDays, orderNote }),
         credentials: 'include',
       });
 
@@ -144,7 +145,7 @@ export default function UserComponent() {
               <input
                 type="hidden"
                 readOnly
-                value={CompanyName}
+                value={companyName}
                 className="mt-2 border border-gray-300 rounded-md p-3 bg-gray-100 text-gray-700"
               />
             </div>
@@ -326,7 +327,7 @@ export default function UserComponent() {
                 onClick={confirmOrder}
                 className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
               >
-                Confirm
+                Yes
               </button>
             </div>
           </div>

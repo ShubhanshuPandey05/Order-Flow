@@ -34,9 +34,11 @@ export const updateOrder = async (req, res) => {
 
     // Get data from request body
     const currentDate = new Date();
-    const { contactNo,CompanyName, customerName, items,dispatchThrough, dueDays, orderNote } = req.body; // Example: { values: [["Order123", "John Doe", "Product A", "100"]] }
+    const { contactNo, CompanyName, customerName, items,dispatchThrough, dueDays, orderNote } = req.body; // Example: { values: [["Order123", "John Doe", "Product A", "100"]] }
     const deliveryDate = new Date();
     deliveryDate.setDate(currentDate.getDate() + parseInt(dueDays || 0));
+    console.log(CompanyName);
+    
     let formattedDeliveryDate = "";
     if(dueDays > 0){
       formattedDeliveryDate = deliveryDate.toLocaleDateString();
