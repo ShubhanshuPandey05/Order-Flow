@@ -10,7 +10,10 @@ import dotenv from "dotenv";
 const app = express();
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({
+  origin: ["http://localhost:3000","https://jsrprimesolution.com"],
+  credentials: true
+}))
 dotenv.config();
 
 // Endpoint to update spreadsheet
