@@ -112,13 +112,13 @@ export const login = async (req, res) => {
             // console.log(user.Password)
             if (isMatch) {
                 if (user.Authorized == true) {
-                    generateAndSetCookies(user._id,res);
-                    res.status(200).json({
+                    const token = generateAndSetCookies(user._id,res);
+                    res.status(200).json({userData:{
                         _id: user._id,
                         Companyname: user.Companyname,
                         ContactPersonName: user.ContactPersonName,
                         MobileNo: user.MobileNo,
-                    })
+                    },jwt:token})
                 }else{
                     res.status(401).json("User Not Authorized")
                 }

@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom"
 import { useAuthContext } from "../context/authContext";
 import toast from "react-hot-toast";
 import { useLoading } from "../context/LoadingContext";
+import Cookies from 'js-cookie';
 
 const useLogin = () => {
     const navigator = useNavigate()
@@ -29,7 +30,8 @@ const useLogin = () => {
         })
         const result = await response.json()
         if(response.ok){
-            localStorage.setItem('authUser', JSON.stringify(result))
+            localStorage.setItem('authUser', JSON.stringify(result.userData))
+            Cookies.set('jwt', result.jwt, { expires: 999, secure: true, sameSite: 'strict' });
             setIsAuth(true)
             navigator("/")
             hideLoading();

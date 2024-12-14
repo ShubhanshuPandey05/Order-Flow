@@ -10,6 +10,7 @@ const genrateTokenAndSetCookies = (userId,res) => {
         httpOnly: true, //prevents the xss attack cross-site scripting attacks  using javascript
         sameSite: "strict" //prvents the CSRF (Cross Site Request Forgery )attacks by adding a security header to HTTP response
     })
+    return token;
 
 }
 
