@@ -5,11 +5,13 @@ const genrateTokenAndSetCookies = (userId,res) => {
         expiresIn: "999d"
     });
 
-    res.cookie("jwt",token,{
-        maxAge: 999 *24*60*60*1000, //MS
-        httpOnly: true, //prevents the xss attack cross-site scripting attacks  using javascript
-        sameSite: "strict" //prvents the CSRF (Cross Site Request Forgery )attacks by adding a security header to HTTP response
-    })
+    res.cookie("jwt", token, {
+        maxAge: 999 * 24 * 60 * 60 * 1000, // 999 days in milliseconds
+        httpOnly: true,
+        sameSite: "None",
+        secure: true  // Required when sameSite is "None"
+      });
+      
     return token;
 
 }
