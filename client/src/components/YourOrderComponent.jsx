@@ -28,6 +28,8 @@ const YourOrder = () => {
         );
 
         if (!response.ok) {
+          console.log(error,"hii");
+          
           throw new Error(`Error: ${response.statusText}`);
         }
 

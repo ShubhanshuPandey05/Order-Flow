@@ -28,11 +28,15 @@ const SHEET_NAME2 = "Sheet2";
 export const getFilteredRows = async (req, res) => {
   const { contact } = req.params;
 
+  console.log(contact);
+  
+
   try {
     const result = await sheets.spreadsheets.values.get({
       spreadsheetId: SPREADSHEET_ID,
       range: SHEET_NAME,
     });
+
 
     const rows = result.data.values;
 
