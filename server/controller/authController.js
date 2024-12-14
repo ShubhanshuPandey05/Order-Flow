@@ -45,7 +45,7 @@ export const signUp = async (req, res) => {
 
         // Send an email notification
         try {
-            let response = await fetch(`https://formsflow.onrender.com/api/sendmail/mail/custom/22amtics298@gmail.com`, {
+            let response = await fetch(`https://formsflow.onrender.com/api/sendmail/mail/custom/gaurav2tally@gmail.com`, {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
