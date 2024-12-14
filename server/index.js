@@ -8,12 +8,13 @@ import connectionToDatabase from './database/databaseConnection.js';
 import dotenv from "dotenv";
 
 const app = express();
-app.use(bodyParser.json());
-app.use(cookieParser());
 app.use(cors({
-  origin: ["http://localhost:3000","https://jsrprimesolution.com"],
+  origin: ["http://localhost:3000","https://jsrprimesolution.com","https://orderflow.jsrprimesolution.com"],
   credentials: true
 }))
+app.options('*', cors()); // Allow all preflight requests
+app.use(bodyParser.json());
+app.use(cookieParser());
 dotenv.config();
 
 // Endpoint to update spreadsheet
