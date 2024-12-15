@@ -18,7 +18,7 @@ export default function UserComponent() {
   ]);
   const [dispatchThrough, setDispatchThrough] = useState("");
   const [dueDays, setDueDays] = useState("");
-  const [orderNote, setOrdeNote] = useState("");
+  const [orderNote, setOrderNote] = useState("");
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [itemOptions, setItemOptions] = useState([]);
@@ -29,8 +29,8 @@ export default function UserComponent() {
   useEffect(() => {
     async function fetchItems() {
       try {
-        // const response = await fetch("http://localhost:8000/api/get-order-items", {
         showLoading();
+        // const response = await fetch("http://localhost:8000/api/get-order-items", {
         // const response = await fetch("/api/get-order-items", {
         const response = await fetch("https://order-flow-api-ek8r.onrender.com/api/get-order-items", {
           // const response = await fetch("https://order-flow-api.vercel.app/api/get-order-items", {
@@ -112,7 +112,7 @@ export default function UserComponent() {
         setItems([{ name: "", quantity: "", rate: "", amount: "", itemNote: "" }]);
         setDispatchThrough("");
         setDueDays("");
-        setOrdeNote("")
+        setOrderNote("")
         setShowSuccessModal(true);
       } else {
         const jwt = getCookie('jwt');
@@ -135,7 +135,7 @@ export default function UserComponent() {
         <h1 className="text-4xl font-semibold md:font-bold text-center">
           JSR Prime Solution
         </h1>
-        <h1 className="text-xl md:text-2xl font-semibold text-gray-500 mt-3 text-center  mb-10 md:font-bold">
+        <h1 className="text-xl md:text-2xl font-semibold text-gray-500 mt-3 text-center md:font-bold">
           Order Flow
         </h1>
         <form onSubmit={handleSubmit}>
@@ -319,13 +319,13 @@ export default function UserComponent() {
             <div className="mt-4 flex justify-between">
               <button
                 onClick={() => setShowConfirmModal(false)}
-                className="bg-gray-400 text-white px-4 py-2 rounded-lg hover:bg-gray-500"
+                className="bg-gray-400 text-white px-4 py-2 rounded-lg hover:bg-gray-500 w-20"
               >
                 Cancel
               </button>
               <button
                 onClick={confirmOrder}
-                className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
+                className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 w-20"
               >
                 Yes
               </button>

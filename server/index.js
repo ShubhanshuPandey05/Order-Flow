@@ -9,7 +9,7 @@ import dotenv from "dotenv";
 
 const app = express();
 app.use(cors({
-  origin: ["http://localhost:3000","https://jsrprimesolution.com","https://orderflow.jsrprimesolution.com"],
+  origin: ["http://localhost:5173","https://jsrprimesolution.com","https://orderflow.jsrprimesolution.com"],
   credentials: true
 }))
 app.options('*', cors()); // Allow all preflight requests

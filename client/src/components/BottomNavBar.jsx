@@ -5,8 +5,8 @@ import { CiBoxList } from "react-icons/ci";
 
 const BottomNavBar = () => {
   const Menus = [
-    { name: "Form", icon: <AiOutlineForm size={24} />, path: "/" },
-    { name: "Your Order", icon: <CiBoxList size={24} />, path: "/your-order" },
+    { name: "New Order", icon: <AiOutlineForm size={24} />, path: "/" },
+    { name: "My Order", icon: <CiBoxList size={24} />, path: "/your-order" },
   ];
 
   const navigate = useNavigate();

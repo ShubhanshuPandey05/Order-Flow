@@ -28,7 +28,7 @@ const SHEET_NAME2 = "Sheet2";
 export const getFilteredRows = async (req, res) => {
   const { contact } = req.params;
 
-  console.log(contact);
+  // console.log(contact);
   
 
   try {
@@ -58,7 +58,7 @@ export const getFilteredRows = async (req, res) => {
     if (filteredRows.length === 0) {
       return res.status(404).json({ message: "No data found for the provided contact number." });
     }
-    console.log(filteredRows)
+    // console.log(filteredRows)
 
     res.json({ data: filteredRows });
   } catch (error) {

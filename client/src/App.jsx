@@ -28,7 +28,7 @@ function App() {
               <Route path="/your-order" element={isAuth ? <OrderPage /> : <Navigate to="/login" />} />
             </Routes>
           </div>
-          <BottomNavBar />
+          {isAuth? <BottomNavBar />: null}
         </Router>
         <LoadingScreen />
       </>

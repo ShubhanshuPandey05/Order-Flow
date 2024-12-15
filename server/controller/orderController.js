@@ -34,10 +34,10 @@ export const updateOrder = async (req, res) => {
 
     // Get data from request body
     const currentDate = new Date();
-    const { contactNo, CompanyName, customerName, items,dispatchThrough, dueDays, orderNote } = req.body; // Example: { values: [["Order123", "John Doe", "Product A", "100"]] }
+    const { companyName, contactNo, customerName, items, dispatchThrough, dueDays, orderNote } = req.body; // Example: { values: [["Order123", "John Doe", "Product A", "100"]] }
     const deliveryDate = new Date();
     deliveryDate.setDate(currentDate.getDate() + parseInt(dueDays || 0));
-    console.log(CompanyName);
+    console.log(companyName);
     
     let formattedDeliveryDate = "";
     if(dueDays > 0){
@@ -52,7 +52,7 @@ export const updateOrder = async (req, res) => {
     const rows = items.map((item) => [
       new Date().toLocaleDateString('en-IN', options), // Date
       new Date().toLocaleTimeString('en-IN', options), // Time
-      CompanyName,
+      companyName,
       customerName, // Customer Name
       contactNo, // Customer ID (leave empty for now)
       item.name, // Item Name

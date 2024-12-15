@@ -28,12 +28,14 @@ const YourOrder = () => {
         );
 
         if (!response.ok) {
-          console.log(error,"hii");
-          
+          console.log(error, "hii");
+
           throw new Error(`Error: ${response.statusText}`);
         }
 
         const data = await response.json();
+        console.log(data.data);
+
         setOrders(data.data || []);
       } catch (err) {
         setError(err.message || "Failed to fetch orders.");
@@ -53,8 +55,12 @@ const YourOrder = () => {
   return (
     <div className="container mx-auto p-6 bg-gray-100 min-h-screen">
       <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">
-        Your Orders
+        My Orders
       </h2>
+      <div className="h-16 w-16 flex-col bg-green-100 shadow-lg fixed z-50 top-4 right-4 rounded-3xl flex justify-center items-center">
+        <div className=" text-[0.7rem] font-extrabold">Orders</div>
+        <div className="font-bold">{orders.length}</div>
+      </div>
 
       {loading && <p className="text-center text-gray-600">Loading...</p>}
       {error && <p className="text-center text-red-500">{error}</p>}
@@ -67,74 +73,51 @@ const YourOrder = () => {
         {orders.map((order, index) => (
           <div
             key={index}
-            className="bg-white rounded-lg p-6 shadow-md transition-transform transform"
+            className="bg-white rounded-lg p-4 shadow-md duration-300 transform hover:-translate-y-2"
           >
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-2xl font-bold text-black">{order[4]}</h3>
+              <h3 className="text-xl font-bold text-blue-800">{order[5]}</h3>
               <div
-                className={
-                  order[12] === "Pending"
-                    ? "text-yellow-400"
-                    : order[12] === "Declined"
-                    ? "text-red-600"
-                    : "text-green-600"
-                }
+                className={`text-sm font-semibold px-3 py-1 rounded-full shadow-md ${order[15] === "Pending"
+                    ? "bg-yellow-100 text-yellow-500"
+                    : order[15] === "Declined"
+                      ? "bg-red-100 text-red-500"
+                      :"bg-green-100 text-green-500"
+                  }`}
               >
-                {order[12]}
+                {order[15]}
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-y-3 text-gray-700">
-              <div className="font-semibold">Date:</div>
-              <div>{order[0]}</div>
+            <div className="grid grid-cols-3 gap-y-4 text-gray-700">
+              <div className="italic col-span-3 -mt-2">{order[6]}</div>
 
-              <div className="font-semibold">Time:</div>
-              <div>{order[1]}</div>
+              <div className="font-semibold">Order Date</div>
+              <div className="col-span-2">{" : "+order[0]}</div>
 
-              <div className="font-semibold">Quantity:</div>
-              <div>{order[6]}</div>
+              <div className="font-semibold">Quantity</div>
+              <div className="col-span-2 font-semibold">{" : "+order[8]}</div>
 
-              <div className="font-semibold">Rate:</div>
-              <div>{order[7]}</div>
+              <div className="font-semibold">Rate</div>
+              <div className="col-span-2">{" : "+order[9]}</div>
 
-              <div className="font-semibold">Amount:</div>
-              <div>{order[8]}</div>
+              <div className="font-semibold">Amount</div>
+              <div className="col-span-2 font-bold text-blue-600">{" : "+order[10]}</div>
 
-              <div className="font-semibold">Dispatch:</div>
-              <div>{order[9]}</div>
+              <div className="font-semibold">Dispatch by</div>
+              <div className="col-span-2">{" : "+order[11]}</div>
 
-              <div className="font-semibold">Delivery Date:</div>
-              <div>{order[10]}</div>
+              <div className="font-semibold">Delivery Dt</div>
+              <div className="col-span-2">{" : "+order[12]}</div>
 
-              <div className="flex justify-between items-center col-span-2 mt-4">
-                <div className="font-semibold">Due Days:</div>
-                <div>{order[11]}</div>
-                {order[12]==="Pending"? <button
-                  type="button"
-                  onClick={() => handleRemoveItem(index)}
-                  className="text-red-500 hover:text-red-600"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    transform="scale(1.1)"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 7l-1 14H6L5 7m5-3h4m-4 0a1 1 0 00-1 1v1h6V5a1 1 0 00-1-1h-4zm-2 4h8m-5 4h2m-2 4h2"
-                    />
-                  </svg>
-                </button>:""}
-              </div>
+              <div className="font-semibold">Remark</div>
+              <div className="col-span-2 italic text-gray-500">{" : "+order[14]}</div>
             </div>
+
           </div>
         ))}
       </div>
+
     </div>
   );
 };
