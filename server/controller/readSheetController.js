@@ -45,7 +45,7 @@ export const getFilteredRows = async (req, res) => {
     }
 
     const headers = rows[0];
-    const contactIndex = headers.indexOf("Contact no.");
+    const contactIndex = headers.indexOf("Contact No.");
 
     if (contactIndex === -1) {
       return res.status(500).json({ message: "Contact no. column not found." });
