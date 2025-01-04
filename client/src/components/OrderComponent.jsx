@@ -5,19 +5,29 @@ import { useLoading } from "../context/LoadingContext";
 export default function UserComponent() {
 
   const authUser = JSON.parse(localStorage.getItem("authUser")) || {
-    customerName: "",
+    contactPersonName: "",
     contactNo: "",
-    companyName: ""
+    companyName: "",
+    userType: ""
   };
 
-  const [customerName] = useState(authUser.ContactPersonName || "");
+  const [contactPersonName] = useState(authUser.ContactPersonName || "");
   const [contactNo] = useState(authUser.MobileNo || "");
   const [companyName] = useState(authUser.Companyname || "");
+  const [userType] = useState(authUser.userType || "");
+  const [GSTIN] = useState(authUser.GSTIN || "");
+  const [city] = useState(authUser.city || "");
+  const [customerName, setCustomerName] = useState("");
+  const [customerMobileno, setCustomerMobileno] = useState("");
+  const [businessType, setBusinessType] = useState("");
+  const [requirementType, setRequirementType] = useState("");
   const [items, setItems] = useState([
     { name: "", unit: "", quantity: "", rate: "", amount: "", itemNote: "" },
   ]);
-  const [dispatchThrough, setDispatchThrough] = useState("");
-  const [dueDays, setDueDays] = useState("");
+  const [licenseType, setLicenseType] = useState("");
+  const [licenseNo, setLicenseNo] = useState("");
+  // const [dispatchThrough, setDispatchThrough] = useState("");
+  // const [dueDays, setDueDays] = useState("");
   const [orderNote, setOrderNote] = useState("");
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -30,9 +40,9 @@ export default function UserComponent() {
     async function fetchItems() {
       try {
         showLoading();
-        // const response = await fetch("http://localhost:8000/api/get-order-items", {
-        // const response = await fetch("/api/get-order-items", {
-        const response = await fetch("https://order-flow-api-ek8r.onrender.com/api/get-order-items", {
+        const response = await fetch("http://localhost:8000/api/get-order-items", {
+          // const response = await fetch("/api/get-order-items", {
+          // const response = await fetch("https://order-flow-api-ek8r.onrender.com/api/get-order-items", {
           // const response = await fetch("https://order-flow-api.vercel.app/api/get-order-items", {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -58,7 +68,7 @@ export default function UserComponent() {
   }, []);
 
 
-  const units = ["Pcs", "Kg", "Ltr", "Mtr", "Nos"];
+  const units = ["Nos"];
 
   const handleItemChange = (index, field, value) => {
     const updatedItems = [...items];
@@ -100,18 +110,24 @@ export default function UserComponent() {
     try {
       // const response = await fetch("https://order-flow-api.vercel.app/api/update-spreadsheet", {
       // const response = await fetch("/api/update-spreadsheet", {
-      const response = await fetch("https://order-flow-api-ek8r.onrender.com/api/update-spreadsheet", {
-        // const response = await fetch("http://localhost:8000/api/update-spreadsheet", {
+      // const response = await fetch("https://order-flow-api-ek8r.onrender.com/api/update-spreadsheet", {
+      const response = await fetch("http://localhost:8000/api/update-spreadsheet", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ companyName, customerName, contactNo, items, dispatchThrough, dueDays, orderNote }),
+        body: JSON.stringify({ userType, companyName, GSTIN, contactPersonName, contactNo, city, customerName, customerMobileno, businessType, requirementType, items, licenseType, licenseNo, orderNote }),
         credentials: 'include',
       });
 
       if (response.ok) {
         setItems([{ name: "", quantity: "", rate: "", amount: "", itemNote: "" }]);
-        setDispatchThrough("");
-        setDueDays("");
+        setBusinessType("");
+        setRequirementType("");
+        setCustomerName("");
+        setCustomerMobileno("");
+        setLicenseNo("");
+        setLicenseType("");
+        // setDispatchThrough("");
+        // setDueDays("");
         setOrderNote("")
         setShowSuccessModal(true);
       } else {
@@ -153,7 +169,7 @@ export default function UserComponent() {
               <input
                 type="hidden"
                 readOnly
-                value={customerName}
+                value={contactPersonName}
                 className="mt-2 border border-gray-300 rounded-md p-3 bg-gray-100 text-gray-700"
               />
             </div>
@@ -166,10 +182,38 @@ export default function UserComponent() {
               />
             </div>
           </div>
+          <div className="md:grid-cols-2 grid gap-2">
+            <input
+              type="text"
+              name="customerName"
+              id="customerName"
+              value={customerName}
+              placeholder="Customer Name"
+              onChange={((e) => { setCustomerName(e.target.value) })}
+              className="border-gray-300 rounded-md p-2 border col-span-1 "
+            />
+            <input
+              type="text"
+              name="customerMobileno"
+              id="customerMobileno"
+              value={customerMobileno}
+              placeholder="Mobile No."
+              onChange={((e) => { setCustomerMobileno(e.target.value) })}
+              className="border-gray-300 rounded-md p-2 border col-span-1 "
+            />
+            <input type="text" name="businessType" placeholder="Business Type" id="businessType" value={businessType} onChange={((e) => { setBusinessType(e.target.value) })} className="border-gray-300 rounded-md p-2 border col-span-1" />
+            <select name="requirementType" id="" className="border-gray-300 rounded-md p-2 border col-span-1" value={requirementType} onChange={((e)=>{setRequirementType(e.target.value)})}  required>
+              <option value="">Requirement Type *</option>
+              <option value="Ready Add-on">Ready Add-on</option>
+              <option value="Ready Module">Ready Module</option>
+              <option value="New Customization">New Customization</option>
+            </select>
+
+          </div>
 
 
           {/* Items Section */}
-          <div className="mb-6">
+          <div className="mb-6 mt-3">
             <h2 className="text-lg font-medium text-gray-800 mb-4">Item Details</h2>
             {items.map((item, index) => (
               <div key={index} className="grid gap-2 sm:grid-cols-6 sm:items-center bg-gray-200 p-2 rounded-md mb-4">
@@ -180,7 +224,7 @@ export default function UserComponent() {
                     onChange={(e) => handleItemChange(index, "name", e.target.value)}
                     className="border-gray-300 rounded-md p-2 w-full"
                   >
-                    <option value="">Select Item *</option>
+                    <option value="">Select Add On / Customizations *</option>
                     {itemOptions.map((option, i) => (
                       <option key={i} value={option}>
                         {option}
@@ -252,7 +296,7 @@ export default function UserComponent() {
                   </button>
                 </div>
                 <div className="col-span-6">
-                  <textarea name="itemNote" id="itemNote" value={item.itemNote} onChange={(e) => handleItemChange(index, "itemNote", e.target.value)} className="w-full col-span-6 h-[40px] p-2 rounded-md" placeholder="Item Note"></textarea>
+                  <textarea name="itemNote" id="itemNote" value={item.itemNote} onChange={(e) => handleItemChange(index, "itemNote", e.target.value)} className="w-full col-span-6 h-[80px] p-2 rounded-md" placeholder="Requirement Note"></textarea>
                 </div>
               </div>
             ))}
@@ -266,33 +310,38 @@ export default function UserComponent() {
             </button>
           </div>
 
-          {/* Dispatch and Due Days */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
             <div className="col-span-1">
-              <input
-                type="text"
-                placeholder="Dispatch Through"
-                value={dispatchThrough}
-                onChange={(e) => setDispatchThrough(e.target.value)}
-                className="border-gray-300 rounded-md p-3 border w-full"
-              />
+              <select name="LicenseType" id="LicenseType"
+                value={licenseType}
+                onChange={(e) => setLicenseType(e.target.value)}
+                className="border-gray-300 rounded-md p-2 w-full">
+                <option value="">License Type</option>
+                <option value="Gold">Gold</option>
+                <option value="Silver">Silver</option>
+                <option value="Auditor">Auditor</option>
+              </select>
             </div>
             <div className="col-span-1">
               <input
                 type="number"
-                placeholder="Due Days"
-                value={dueDays}
-                onChange={(e) => setDueDays(e.target.value)}
-                className="border-gray-300 rounded-md p-3 border w-full"
+                placeholder="License No."
+                value={licenseNo}
+                onChange={(e) => setLicenseNo(e.target.value)}
+                className="border-gray-300 rounded-md p-2 border w-full"
+                minLength={9}
+                maxLength={9}
               />
             </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
             <div className="col-span-1 sm:col-span-2">
               <textarea
                 name="itemNote"
                 id="itemNote"
                 value={orderNote}
                 onChange={(e) => setOrderNote(e.target.value)}
-                className="w-full h-[40px] p-2 rounded-md"
+                className="w-full h-[80px] p-2 rounded-md"
                 placeholder="Remark"
               ></textarea>
             </div>

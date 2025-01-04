@@ -11,15 +11,15 @@ const useSignUp = () => {
 
     const signUp = async (data) => {
 
-        const success = handleErrorInputs(data.Companyname, data.ContactPersonName, data.Password, data.MobileNo, data.GST_No, data.PAN_No);
+        const success = handleErrorInputs(data.Companyname, data.ContactPersonName, data.Password, data.MobileNo, data.GST_No, data.PAN_No, data.City, data.UserType);
 
         if (!success) return; 
         showLoading();
 
         // let response = await fetch("/api/auth/signUp/",{
-        let response = await fetch("https://order-flow-api-ek8r.onrender.com/api/auth/signUp/",{
+        // let response = await fetch("https://order-flow-api-ek8r.onrender.com/api/auth/signUp/",{
         // let response = await fetch("https://order-flow-api.vercel.app/api/auth/signUp/",{
-        // let response = await fetch("http://localhost:8000/api/auth/signUp/",{
+        let response = await fetch("http://localhost:8000/api/auth/signUp/",{
             method: "post",
             headers: {
                 "Content-Type": "application/json",
@@ -45,8 +45,8 @@ const useSignUp = () => {
 }
 
 
-function handleErrorInputs(Companyname, ContactPersonName, password, MobileNo, GST_No, PAN_No) {
-    if (!Companyname || !ContactPersonName || !password || !MobileNo) {
+function handleErrorInputs(Companyname, ContactPersonName, password, MobileNo, GST_No, PAN_No, City, UserType) {
+    if (!Companyname || !ContactPersonName || !password || !MobileNo || !City || !UserType) {
         toast.error('Please fill all the required fields');
         return false;
     }else if (password.length < 6) {

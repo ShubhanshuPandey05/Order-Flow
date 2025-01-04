@@ -5,7 +5,7 @@ import fetch from 'node-fetch';
 
 export const signUp = async (req, res) => {
     try {
-        const { Companyname, ContactPersonName, Password, MobileNo, GST_No, PAN_No } = req.body;
+        const { Companyname, ContactPersonName, Password, MobileNo, GST_No, PAN_No, UserType, City } = req.body;
 
         // Check if the user already exists
         let user = await User.findOne({ ContactPersonName });
@@ -30,6 +30,8 @@ export const signUp = async (req, res) => {
             MobileNo,
             GST_No,
             PAN_No,
+            UserType,
+            City,
             Temp_Token: tempToken,
             Authorized: false
         });
@@ -39,13 +41,16 @@ export const signUp = async (req, res) => {
             Companyname,
             ContactPersonName,
             MobileNo,
+            UserType,
             GST_No,
-            PAN_No
+            PAN_No,
+            City
         };
 
         // Send an email notification
         try {
-            let response = await fetch(`https://formsflow.onrender.com/api/sendmail/mail/custom/gaurav2tally@gmail.com`, {
+            let response = await fetch(`https://forms-flow.onrender.com/api/sendmail/mail/custom/22amtics298@gmail.com`, {
+            // let response = await fetch(`https://forms-flow.onrender.com/api/sendmail/mail/custom/gaurav2tally@gmail.com`, {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -69,7 +74,8 @@ export const signUp = async (req, res) => {
                 _id: user._id,
                 Companyname: user.Companyname,
                 ContactPersonName: user.ContactPersonName,
-                MobileNo: user.MobileNo
+                MobileNo: user.MobileNo,
+
             });
         } catch (fetchError) {
             console.error("Error sending email notification:", fetchError);
@@ -109,7 +115,7 @@ export const login = async (req, res) => {
         }
         else {
             const isMatch = await bcrypt.compare(Password, user.Password);
-            // console.log(user.Password)
+            // console.log(user.Password)3
             if (isMatch) {
                 if (user.Authorized == true) {
                     const token = generateAndSetCookies(user._id,res);
@@ -118,6 +124,9 @@ export const login = async (req, res) => {
                         Companyname: user.Companyname,
                         ContactPersonName: user.ContactPersonName,
                         MobileNo: user.MobileNo,
+                        userType: user.UserType,
+                        GSTIN: user.GST_No,
+                        city: user.City
                     },jwt:token})
                 }else{
                     res.status(401).json("User Not Authorized")

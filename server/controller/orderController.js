@@ -14,7 +14,7 @@ const __dirname = path.dirname(__filename);
 
 // Spreadsheet ID and range to update
 const SPREADSHEET_ID = process.env.SPREADSHEET_ID;
-const RANGE = "Sheet1!A1:D1";
+const RANGE = "Orders!A1:Z1";
 
 // Authenticate with the Google API using Service Account
 const serviceAccountCredentials = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON);
@@ -33,40 +33,71 @@ export const updateOrder = async (req, res) => {
     const sheets = google.sheets({ version: "v4", auth: client });
 
     // Get data from request body
-    const currentDate = new Date();
-    const { companyName, contactNo, customerName, items, dispatchThrough, dueDays, orderNote } = req.body; // Example: { values: [["Order123", "John Doe", "Product A", "100"]] }
-    const deliveryDate = new Date();
-    deliveryDate.setDate(currentDate.getDate() + parseInt(dueDays || 0));
-    console.log(companyName);
-    
-    let formattedDeliveryDate = "";
-    if(dueDays > 0){
-      formattedDeliveryDate = deliveryDate.toLocaleDateString();
-    }
+    // const currentDate = new Date();
+    const { userType, companyName, GSTIN, contactPersonName, contactNo, city, customerName, customerMobileno, businessType, requirementType, items, licenseType, licenseNo, orderNote } = req.body; // Example: { values: [["Order123", "John Doe", "Product A", "100"]] }
+    // const deliveryDate = new Date();
+    // deliveryDate.setDate(currentDate.getDate() + parseInt(dueDays || 0));
+    // console.log(companyName);
+
+    // let formattedDeliveryDate = "";
+    // if (dueDays > 0) {
+    //   formattedDeliveryDate = deliveryDate.toLocaleDateString();
+    // }
 
     const options = {
       timeZone: 'Asia/Kolkata', // IST time zone
       hour12: true, // Optional, for 12-hour format
     };
 
-    const rows = items.map((item) => [
-      new Date().toLocaleDateString('en-IN', options), // Date
-      new Date().toLocaleTimeString('en-IN', options), // Time
-      companyName,
-      customerName, // Customer Name
-      contactNo, // Customer ID (leave empty for now)
-      item.name, // Item Name
-      item.itemNote||"",
-      item.unit || "Unit",
-      item.quantity, // Quantity
-      item.rate || "", // Rate (optional)
-      item.amount || "", // Amount (optional)
-      dispatchThrough, // Dispatch Through
-      formattedDeliveryDate,
-      dueDays,
-      orderNote,
-      "Pending"
-    ]);
+    const getResponse = await sheets.spreadsheets.values.get({
+      spreadsheetId: SPREADSHEET_ID,
+      range: `Orders!A:A`, // Get the SR NO column
+    });
+
+    const existingRows = getResponse.data.values || [];
+    let lastSRNo = 0;
+
+    if (existingRows.length > 1) {
+      // Get the last SR NO and timestamp from the last row
+      const lastRow = existingRows[existingRows.length - 1];
+      lastSRNo = parseInt(lastRow[0]) || 0; // SR NO is in the third column (index 2)
+    }
+
+    let srNo = lastSRNo;
+
+    const rows = items.map((item) => {
+      srNo++;
+      return [
+        srNo,
+        new Date().toLocaleDateString('en-IN', options), // Date
+        new Date().toLocaleTimeString('en-IN', options), // Time
+        userType,
+        companyName,
+        GSTIN,
+        contactPersonName,
+        contactNo,
+        city,
+        customerName,
+        customerMobileno,
+        businessType,
+        requirementType,
+        item.name, // Item Name
+        item.itemNote || "",
+        item.quantity, // Quantity
+        item.unit || "Unit",
+        item.rate || "", // Rate (optional)
+        item.amount || "", // Amount (optional)
+        // dispatchThrough, // Dispatch Through
+        licenseNo,
+        licenseType,
+        orderNote,
+        "",
+        "",
+        // formattedDeliveryDate,
+        // dueDays,
+        "Pending"
+      ]
+    });
 
     if (!rows || !Array.isArray(rows)) {
       return res.status(400).json({ error: "Invalid or missing 'values' array" });

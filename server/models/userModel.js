@@ -28,6 +28,15 @@ const userSchema = new mongoose.Schema({
         type:String,
         length:10
     },
+    UserType:{
+        type:String,
+        required:true,
+        enum:["Partner","Accountant","Customer"]
+    },
+    City:{
+        type:String,
+        required:true
+    },
     Temp_Token:{
         type:String,
         required:true

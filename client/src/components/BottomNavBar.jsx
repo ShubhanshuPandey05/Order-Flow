@@ -33,7 +33,7 @@ const BottomNavBar = () => {
 
       if (location.pathname == "/") {
         setActive(0)
-      }else{
+      } else {
         setActive(1)
       }
     };
@@ -53,12 +53,12 @@ const BottomNavBar = () => {
   };
 
   return (
-    <div className="bg-white h-[4.4rem] rounded-t-xl fixed bottom-0 left-0 right-0 shadow-md" ref={navRef}>
-      <ul className="flex relative justify-around">
+    <div className="bg-white h-[4.4rem] rounded-t-xl fixed bottom-0 left-0 right-0 shadow-md w-screen" ref={navRef}>
+      <ul className="flex relative justify-around" >
         {/* Active Indicator */}
         <span
           className="bg-blue-600 duration-500 border-4 border-white h-16 w-16 absolute -top-5 rounded-full"
-          style={{ left: `${indicatorPosition.left -32}px` }}
+          style={{ left: `${indicatorPosition.left - 32}px` }}
         >
           <span className="w-3.5 h-3.5 bg-transparent absolute top-4 -left-[18px] rounded-tr-[11px] shadow-myShadow1"></span>
           <span className="w-3.5 h-3.5 bg-transparent absolute top-4 -right-[18px] rounded-tl-[11px] shadow-myShadow2"></span>
@@ -71,13 +71,13 @@ const BottomNavBar = () => {
               className="flex flex-col items-center text-center pt-6"
               onClick={() => handleNavigate(i, menu.path)}
             >
-              <span
-                className={`text-2xl cursor-pointer duration-500 ${i === active && "-mt-6 text-white z-50"}`}
+              <spannpm
+                className={`text-2xl cursor-pointer duration-500 ${i === active ? "-mt-6 text-white z-50" : "-mt-3"}`}
               >
                 {menu.icon}
-              </span>
+              </spannpm>
               <span
-                className={`text-sm font-medium ${active === i ? "translate-y-4 duration-700 opacity-100 text-black" : "opacity-0 translate-y-10 text-gray-500"}`}
+                className={`text-sm font-medium ${active != i ? "duration-700 opacity-100 text-black" : "opacity-0 translate-y-10 text-gray-500"}`}
               >
                 {menu.name}
               </span>

@@ -22,8 +22,8 @@ const auth = new google.auth.GoogleAuth({
 const sheets = google.sheets({ version: "v4", auth });
 
 const SPREADSHEET_ID = process.env.SPREADSHEET_ID;
-const SHEET_NAME = "Sheet1";
-const SHEET_NAME2 = "Sheet2";
+const SHEET_NAME = "Orders";
+const SHEET_NAME2 = "AddOnList";
 
 export const getFilteredRows = async (req, res) => {
   const { contact } = req.params;
@@ -47,7 +47,7 @@ export const getFilteredRows = async (req, res) => {
     const headers = rows[0];
     // console.log(headers);
     
-    const contactIndex = headers.indexOf("Contact No");
+    const contactIndex = headers.indexOf("Regd. Mobile No.");
 
     if (contactIndex === -1) {
       return res.status(500).json({ message: "Contact no. column not found." });
